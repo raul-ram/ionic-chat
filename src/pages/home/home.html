@@ -1,14 +1,36 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Ionic Chat
     </ion-title>
+    <ion-buttons end>
+      <button ion-button color="primary" icon-only (click)="showPrompt()">
+        <ion-icon name="create"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content>
+  <ion-card *ngFor="let mess of messages" >
+    <ion-card-header>
+      {{mess.nick}}
+    </ion-card-header>
+    <ion-card-content>
+     {{mess.text}} <br>
+     <small>{{mess.timestamp | date:'medium'}}</small>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
+<ion-footer>
+  <ion-navbar color="light">
+    <ion-list no-lines>
+      <ion-item color="light">
+        <ion-input type="text" placeholder="Username" [(ngModel)]="message" ></ion-input>
+        <button ion-button icon-only item-right clear (click)="send()" [disabled]="(message)?.length<2">
+          <ion-icon name="send"></ion-icon>
+        </button>
+      </ion-item>
+    </ion-list>
+  </ion-navbar>
+</ion-footer>
